@@ -30,18 +30,18 @@ const LoginForm = () => {
             password: data.password
          }).
             then((error) => {
-               throw new Error(error?.error)
+               if (error?.error) {
+                  throw new Error(error.error)
+               }
             })
       } catch (err) {
-         if (err) {
-            let message
-            if (err instanceof Error) message = err.message
-            else message = String(err)
-            toast({
-               severity: "error",
-               message
-            })
-         }
+         let message
+         if (err instanceof Error) message = err.message
+         else message = String(err)
+         toast({
+            severity: "error",
+            message
+         })
       }
       setLogin(false)
    }
